@@ -293,6 +293,10 @@ export default Component.extend(InvokeActionMixin, InboundActionMixin, {
 
     getDate() {
       this.$().fullCalendar('getDate');
+    },
+
+    getView() {
+      this.$().fullCalendar('getView');
     }
   }
 });
