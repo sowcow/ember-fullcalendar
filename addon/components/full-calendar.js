@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import layout from '../templates/components/full-calendar';
 import { InvokeActionMixin } from 'ember-invoke-action';
-const { observer, computed, getOwner } = Ember;
+import InboundActionMixin from 'ember-component-inbound-actions/inbound-actions';
 
+const { observer, computed, getOwner } = Ember;
 
 // We need IE Support so using a polyfill for Object.assign
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#Polyfill
@@ -27,7 +28,7 @@ if (typeof Object.assign !== 'function') {
   };
 }
 
-export default Ember.Component.extend(InvokeActionMixin, {
+export default Ember.Component.extend(InvokeActionMixin, InboundActionMixin, {
 
   /////////////////////////////////////
   // PROPERTIES
@@ -281,9 +282,39 @@ export default Ember.Component.extend(InvokeActionMixin, {
    * Observes `date` property allowing date to be changed from outside
    * of the component.
    */
-  dateDidChange: Ember.observer('date', function() {
+  dateDidChange: observer('date', function() {
     let date = this.get('date');
     this.$().fullCalendar('gotoDate', date);
-  })
+  }),
 
+  /////////////////////////////////////
+  // FC METHODS
+  /////////////////////////////////////
+
+  actions: {
+
+    prev() {
+      this.$().fullCalendar('prev');
+    },
+
+    next() {
+      this.$().fullCalendar('next');
+    },
+
+    prevYear() {
+      this.$().fullCalendar('prevYear');
+    },
+
+    nextYear() {
+      this.$().fullCalendar('nextYear');
+    },
+
+    today() {
+      this.$().fullCalendar('today');
+    },
+
+    getDate() {
+      this.$().fullCalendar('getDate');
+    }
+  }
 });
