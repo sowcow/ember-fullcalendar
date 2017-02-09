@@ -45,7 +45,34 @@ let events = Ember.A([{
 ```
 
 ### FullCalendar Methods
-FullCalendar methods can be called like so:
+There are two ways to call FullCalendar methods:
+
+The first is to send specific actions to the calendar by attaching an `actionReceiver` to the component:
+
+```hbs
+{{full-calendar events=events actionReceiver=calendar}}
+```
+
+```javascript
+// app/controllers/application.js
+import Ember from 'ember';
+
+calendar: null,
+
+export default Ember.Controller.extend({
+	actions: {
+		nextMonth(){
+			this.get('calendar').next();
+		}
+	}
+});
+```
+
+Currently, the `prev`, `next`, `prevYear`, `nextYear`, `today`, `getDate` and `getView` methods are available.
+
+This is beneficial if you only need access to the aforementioned methods or are dealing with multiple instances of FulLCalendar on a single screen and can't target the class directly.
+
+The second is to just target the instance directly using the `full-calendar` class:
 
 ```javascript
 // app/controllers/application.js
@@ -59,6 +86,8 @@ export default Ember.Controller.extend({
 	}
 });
 ```
+
+This is beneficial if you need access to methods that haven't been implemented.
 
 ### DDAU
 
