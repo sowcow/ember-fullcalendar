@@ -11,9 +11,8 @@ module.exports = {
   options: {
     nodeAssets: {
       'fullcalendar': {
-        enabled: this.includeScheduler, // XXX: wrong but efficient
         srcDir: 'dist',
-        import: ['fullcalendar.js', 'fullcalendar.css']
+        import: ['fullcalendar.js']
       },
       'fullcalendar-scheduler': function() {
         return {
